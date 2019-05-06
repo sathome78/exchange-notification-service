@@ -1,0 +1,41 @@
+mail_support:
+  host: smtp.gmail.com
+  port: 587
+  protocol: smtp
+  user: exrates.dev.test@gmail.com
+  password: vq2q3DjVqpzKPXXZ
+
+mail_mandrill:
+  host: smtp.mandrillapp.com
+  port: 587
+  protocol: smtp
+  user: Currency
+  password: PsQhkDq7dB8Zn3qAserRTw
+
+mail_info:
+  host: smtp.gmail.com
+  port: 587
+  protocol: smtp
+  user: exrates.dev.test@gmail.com
+  password: tc*<kF7,h[bXLK_e
+
+default_mail_type: gmail
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: root
+
+mail_info.allowedOnly: false
+mail_info.allowedEmails: golvazin@gmail.com,avto12@i.ua,wayfarer2006@ukr.net,yagi7337@gmail.com,yagi3773@gmail.com,vlad.dziubak@gmail.com,nikita.dmytrenko@upholding.biz,oleg.podolyan@upholdingz.biz,oleg.kostiukevych@upholding.biz,listing@exrates.me
+
+support.email: mail@exrates.top
+mandrill.email: no-reply@exrates.me
+info.email: no-reply@exrates.top
+
+listing.email: listing@exrates.me
+listing.subject: Listing request
+server:
+  port: 8081
