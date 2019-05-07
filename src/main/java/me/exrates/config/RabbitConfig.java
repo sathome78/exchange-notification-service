@@ -21,9 +21,6 @@ public class RabbitConfig {
     public static final String EMAIL_QUEUE = "email-queue";
     public static final String EMAIL_LISTING_REQUEST_QUEUE = "email-listing-email-queue";
 
-//    public static final String EXCHANGE_ORDERS = "orders-exchange";
-//    public static final String QUEUE_DEAD_ORDERS = "dead-orders-queue";
-
     private static final Logger logger = LogManager.getLogger(RabbitConfig.class);
 
     @Bean
@@ -38,44 +35,13 @@ public class RabbitConfig {
 
     @Bean
     Queue emailListingRequestQueue() {
-        return QueueBuilder.durable(EMAIL_QUEUE).build();
+        return QueueBuilder.durable(EMAIL_LISTING_REQUEST_QUEUE).build();
     }
 
     @Bean
     Queue emailQueue() {
-        return QueueBuilder.durable(EMAIL_LISTING_REQUEST_QUEUE).build();
+        return QueueBuilder.durable(EMAIL_QUEUE).build();
     }
-
-//
-//    @Bean
-//    Exchange ordersExchange() {
-//        return ExchangeBuilder.topicExchange(EXCHANGE_ORDERS).build();
-//    }
-
-//    @Bean
-//    Binding binding(Queue ordersQueue, TopicExchange ordersExchange) {
-//        return BindingBuilder.bind(ordersQueue).to(ordersExchange).with(QUEUE_ORDERS);
-//    }
-
-//    @Bean("jspQueue")
-//    public Queue jspQueue() {
-//        return QueueBuilder
-//                .durable("jsp-queue")
-//                .withArgument("x-dead-letter-exchange", "")
-//                .withArgument("x-dead-letter-routing-key", QUEUE_DEAD_ORDERS)
-//                .withArgument("x-message-ttl", 5000)
-//                .build();
-//    }
-//
-//    @Bean
-//    Binding jspBinding(TopicExchange ordersExchange) {
-//        return BindingBuilder.bind(jspQueue()).to(ordersExchange).with("jsp-queue");
-//    }
-
-//    @Bean
-//    TopicExchange ordersExchange() {
-//        return new TopicExchange("EXCHANGE");
-//    }
 
     @Bean
     public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {

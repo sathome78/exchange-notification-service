@@ -1,20 +1,21 @@
 package me.exrates.service;
 
+import lombok.extern.log4j.Log4j2;
 import me.exrates.config.ApplicationProps;
 import me.exrates.model.Email;
 import me.exrates.model.EmailSenderType;
 import me.exrates.model.ListingRequest;
 import me.exrates.model.MessageFormatterUtil;
-import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import javax.annotation.PreDestroy;
 import java.io.File;
@@ -36,6 +37,8 @@ public class SendMailServiceImpl implements SendMailService {
     private static final String UTF8 = "UTF-8";
     @Autowired
     ApplicationProps props;
+    @Autowired
+    ResourceLoader resourceLoader;
     @Autowired
     @Qualifier("SupportMailSender")
     private JavaMailSender supportMailSender;
@@ -174,8 +177,12 @@ public class SendMailServiceImpl implements SendMailService {
     private String prepareTemplate(String text) {
         File file;
         String html;
+
         try {
-            file = ResourceUtils.getFile("classpath:email/template.html");
+            Resource resource = resourceLoader.getResource(
+                    "classpath:email/template.html");
+
+            file = resource.getFile();
             byte[] encoded = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
             html = new String(encoded, StandardCharsets.UTF_8.name());
         } catch (IOException e) {
