@@ -47,14 +47,25 @@ public class ApplicationProps {
     private String mailType;
     @Value("${support.email}")
     private String supportEmail;
-    @Value("${mandrill.email}")
-    private String mandrillEmail;
+    @Value("${main.email}")
+    private String mainEmail;
     @Value("${info.email}")
     private String infoEmail;
     @Value("${listing.email}")
     private String listingEmail;
     @Value("${listing.subject}")
     private String listingSubject;
+
+    @Value("${mail_ses.host}")
+    private String mailSesHost;
+    @Value("${mail_ses.port}")
+    private String mailSesPort;
+    @Value("${mail_ses.protocol}")
+    private String mailSesProtocol;
+    @Value("${mail_ses.user}")
+    private String mailSesUser;
+    @Value("${mail_ses.password}")
+    private String mailSesPassword;
 
 
     public String getMailSupportHost() {
@@ -133,8 +144,8 @@ public class ApplicationProps {
         return supportEmail;
     }
 
-    public String getMandrillEmail() {
-        return mandrillEmail;
+    public String getMainEmail() {
+        return mainEmail;
     }
 
     public String getInfoEmail() {
@@ -147,5 +158,25 @@ public class ApplicationProps {
 
     public String getListingSubject() {
         return listingSubject;
+    }
+
+    public String getMailSesHost() {
+        return mailSesHost;
+    }
+
+    public String getMailSesPort() {
+        return mailSesPort;
+    }
+
+    public String getMailSesProtocol() {
+        return mailSesProtocol;
+    }
+
+    public String getMailSesUser() {
+        return mailSesUser;
+    }
+
+    public String getMailSesPassword() {
+        return mailSesPassword;
     }
 }

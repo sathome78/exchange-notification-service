@@ -17,7 +17,7 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 public class RabbitConfig {
 
     public static final String EMAIL_INFO_QUEUE = "email-info-queue";
-    public static final String EMAIL_MANDRILL_QUEUE = "email-mandrill-queue";
+    public static final String EMAIL_SES_QUEUE = "email-ses-queue";
     public static final String EMAIL_QUEUE = "email-queue";
     public static final String EMAIL_LISTING_REQUEST_QUEUE = "email-listing-email-queue";
 
@@ -30,7 +30,7 @@ public class RabbitConfig {
 
     @Bean
     Queue emailMandrillQueue() {
-        return QueueBuilder.durable(EMAIL_MANDRILL_QUEUE).build();
+        return QueueBuilder.durable(EMAIL_SES_QUEUE).build();
     }
 
     @Bean

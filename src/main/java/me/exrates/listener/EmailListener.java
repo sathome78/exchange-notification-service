@@ -16,9 +16,9 @@ public class EmailListener {
     @Autowired
     SendMailService sendMailService;
 
-    @RabbitListener(queues = RabbitConfig.EMAIL_MANDRILL_QUEUE)
-    public void processEmailMandrill(Email email) {
-        sendMailService.sendMailMandrill(email);
+    @RabbitListener(queues = RabbitConfig.EMAIL_SES_QUEUE)
+    public void processEmailSes(Email email) {
+        sendMailService.sendMailSes(email);
     }
 
     @RabbitListener(queues = RabbitConfig.EMAIL_INFO_QUEUE)

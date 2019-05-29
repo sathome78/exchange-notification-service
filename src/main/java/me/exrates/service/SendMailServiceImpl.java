@@ -46,6 +46,9 @@ public class SendMailServiceImpl implements SendMailService {
     @Qualifier("MandrillMailSender")
     private JavaMailSender mandrillMailSender;
     @Autowired
+    @Qualifier("SesMailSender")
+    private JavaMailSender sesMailSender;
+    @Autowired
     @Qualifier("InfoMailSender")
     private JavaMailSender infoMailSender;
     @Value("${spring.profiles.active}")
@@ -68,7 +71,7 @@ public class SendMailServiceImpl implements SendMailService {
         });
     }
 
-    public void sendMailMandrill(Email email) {
+    public void sendMailSes(Email email) {
         SUPPORT_MAIL_EXECUTORS.execute(() -> {
             try {
                 sendByType(email, EmailSenderType.valueOf(props.getMailType()));
@@ -88,11 +91,11 @@ public class SendMailServiceImpl implements SendMailService {
                 sendInfoMail(email);
                 break;
             }
-            case mandrill: {
+            case ses: {
                 sendMail(email.toBuilder()
-                                .from(props.getMandrillEmail())
+                                .from(props.getMainEmail())
                                 .build(),
-                        mandrillMailSender);
+                        sesMailSender);
                 break;
             }
         }
@@ -111,7 +114,7 @@ public class SendMailServiceImpl implements SendMailService {
                 sendMail(email.toBuilder()
                                 .from(props.getInfoEmail())
                                 .build(),
-                        activeProfile.equalsIgnoreCase("prod") ? mandrillMailSender : infoMailSender);
+                        activeProfile.equalsIgnoreCase("prod") ? sesMailSender : infoMailSender);
             } catch (MailException ex) {
                 log.error(ex);
                 sendMail(email.toBuilder()

@@ -12,6 +12,13 @@ mail_mandrill:
   user: Service
   password: dKD_WZ61VHQbQwWlRQI8cA
 
+mail_ses:
+  host: email-smtp.us-east-1.amazonaws.com
+  port: 587
+  protocol: smtp
+  user: AKIA6M5IMESXGM7DI2XJ
+  password: BPg7g+834jBANU1aT57lZI3oowDQ8J5J4VWOOe6sxSq/
+
 mail_info:
   host: smtp.gmail.com
   port: 587
@@ -19,7 +26,7 @@ mail_info:
   user: exrates.dev.test@gmail.com
   password: tc*<kF7,h[bXLK_e
 
-default_mail_type: gmail
+default_mail_type: ses
 
 spring:
   rabbitmq:
@@ -32,7 +39,7 @@ mail_info.allowedOnly: false
 mail_info.allowedEmails: golvazin@gmail.com,avto12@i.ua,wayfarer2006@ukr.net,yagi7337@gmail.com,yagi3773@gmail.com,vlad.dziubak@gmail.com,nikita.dmytrenko@upholding.biz,oleg.podolyan@upholdingz.biz,oleg.kostiukevych@upholding.biz,listing@exrates.me
 
 support.email: mail@exrates.top
-mandrill.email: no-reply@exrates.me
+main.email: no-reply@exrates.me
 info.email: no-reply@exrates.top
 
 listing.email: listing@exrates.me

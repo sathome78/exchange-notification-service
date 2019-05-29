@@ -43,6 +43,21 @@ public class MailConfig {
         return mailSenderImpl;
     }
 
+    @Bean(name = "SesMailSender")
+    public JavaMailSenderImpl sesMailSenderImpl() {
+        final JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
+        mailSenderImpl.setHost(props.getMailSesHost());
+        mailSenderImpl.setPort(Integer.parseInt(props.getMailSesPort()));
+        mailSenderImpl.setProtocol(props.getMailSesProtocol());
+        mailSenderImpl.setUsername(props.getMailSesUser());
+        mailSenderImpl.setPassword(props.getMailSesPassword());
+        final Properties javaMailProps = mailSenderImpl.getJavaMailProperties();
+        javaMailProps.put("mail.smtp.auth", true);
+        javaMailProps.put("mail.smtp.starttls.enable", true);
+        javaMailProps.put("mail.smtp.ssl.trust", props.getMailSesHost());
+        return mailSenderImpl;
+    }
+
     @Bean(name = "InfoMailSender")
     public JavaMailSenderImpl infoMailSenderImpl() {
         final JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
