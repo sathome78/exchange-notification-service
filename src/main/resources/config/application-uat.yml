@@ -30,10 +30,10 @@ default_mail_type: ses
 
 spring:
   rabbitmq:
-    host: localhost
+    host: rabbitmq-preprod.service
     port: 5672
-    username: root
-    password: root
+    username: preprod
+    password: eehVBU21x
 
 mail_info.allowedOnly: false
 mail_info.allowedEmails: golvazin@gmail.com,avto12@i.ua,wayfarer2006@ukr.net,yagi7337@gmail.com,yagi3773@gmail.com,vlad.dziubak@gmail.com,nikita.dmytrenko@upholding.biz,oleg.podolyan@upholdingz.biz,oleg.kostiukevych@upholding.biz,listing@exrates.me
