@@ -42,7 +42,7 @@ support.email: mail@exrates.top
 main.email: no-reply@exrates.me
 info.email: exrates.me
 
-listing.email: listing@exrates.me
+listing.email: coo@exrates.me
 listing.subject: Listing request
 server:
   port: 8081

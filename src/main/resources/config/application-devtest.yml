@@ -42,7 +42,7 @@ support.email: mail@exrates.top
 main.email: no-reply@exrates.me
 info.email: no-reply@exrates.top
 
-listing.email: listing@exrates.me
+listing.email: maxim.yukhno@upholding.biz
 listing.subject: Listing request
 server:
   port: 8081

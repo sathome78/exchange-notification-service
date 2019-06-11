@@ -17,14 +17,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PreDestroy;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -32,57 +29,54 @@ import java.util.stream.Stream;
 @Service
 public class SendMailServiceImpl implements SendMailService {
 
-    private final static ExecutorService EXECUTORS = Executors.newCachedThreadPool();
-    private final static ExecutorService SUPPORT_MAIL_EXECUTORS = Executors.newCachedThreadPool();
     private static final String UTF8 = "UTF-8";
+
     @Autowired
     ApplicationProps props;
+
     @Autowired
     ResourceLoader resourceLoader;
+
     @Autowired
     @Qualifier("SupportMailSender")
     private JavaMailSender supportMailSender;
-    @Autowired
-    @Qualifier("MandrillMailSender")
-    private JavaMailSender mandrillMailSender;
+
     @Autowired
     @Qualifier("SesMailSender")
     private JavaMailSender sesMailSender;
+
     @Autowired
     @Qualifier("InfoMailSender")
     private JavaMailSender infoMailSender;
+
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
     public void sendMail(Email email) {
-        SUPPORT_MAIL_EXECUTORS.execute(() -> {
-            try {
-                sendMail(email.toBuilder()
-                                .from(props.getSupportEmail())
-                                .build(),
-                        supportMailSender);
-            } catch (Exception ex) {
-                log.error(ex);
-                sendMail(email.toBuilder()
-                                .from(props.getInfoEmail())
-                                .build(),
-                        infoMailSender);
-            }
-        });
+        try {
+            sendMail(email.toBuilder()
+                            .from(props.getSupportEmail())
+                            .build(),
+                    supportMailSender);
+        } catch (Exception ex) {
+            log.error(ex);
+            sendMail(email.toBuilder()
+                            .from(props.getInfoEmail())
+                            .build(),
+                    infoMailSender);
+        }
     }
 
     public void sendMailSes(Email email) {
-        SUPPORT_MAIL_EXECUTORS.execute(() -> {
-            try {
-                sendByType(email, EmailSenderType.valueOf(props.getMailType()));
-            } catch (Exception e) {
-                log.error(e);
-                sendMail(email.toBuilder()
-                                .from(props.getSupportEmail())
-                                .build(),
-                        supportMailSender);
-            }
-        });
+        try {
+            sendByType(email, EmailSenderType.valueOf(props.getMailType()));
+        } catch (Exception e) {
+            log.error(e);
+            sendMail(email.toBuilder()
+                            .from(props.getSupportEmail())
+                            .build(),
+                    supportMailSender);
+        }
     }
 
     private void sendByType(Email email, EmailSenderType type) {
@@ -109,20 +103,18 @@ public class SendMailServiceImpl implements SendMailService {
                 return;
             }
         }
-        EXECUTORS.execute(() -> {
-            try {
-                sendMail(email.toBuilder()
-                                .from(props.getInfoEmail())
-                                .build(),
-                        activeProfile.equalsIgnoreCase("prod") ? sesMailSender : infoMailSender);
-            } catch (MailException ex) {
-                log.error(ex);
-                sendMail(email.toBuilder()
-                                .from(props.getSupportEmail())
-                                .build(),
-                        supportMailSender);
-            }
-        });
+        try {
+            sendMail(email.toBuilder()
+                            .from(props.getInfoEmail())
+                            .build(),
+                    activeProfile.equalsIgnoreCase("prod") ? sesMailSender : infoMailSender);
+        } catch (MailException ex) {
+            log.error(ex);
+            sendMail(email.toBuilder()
+                            .from(props.getSupportEmail())
+                            .build(),
+                    supportMailSender);
+        }
     }
 
     private void sendMail(Email email, JavaMailSender mailSender) {
@@ -169,12 +161,6 @@ public class SendMailServiceImpl implements SendMailService {
                 .subject(props.getListingSubject())
                 .message(MessageFormatterUtil.format(name, email, telegram, text))
                 .build());
-    }
-
-    @PreDestroy
-    public void destroy() {
-        EXECUTORS.shutdown();
-        SUPPORT_MAIL_EXECUTORS.shutdown();
     }
 
     private String prepareTemplate(String text) {
