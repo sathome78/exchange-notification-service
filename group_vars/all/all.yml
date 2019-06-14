@@ -1,0 +1,22 @@
+---
+deployment_env: "devtest"
+deployment_app_version: 1
+deployment_chart_version: v1.0.0
+
+global_chart_name: notification-service-charts
+global_chart_version: "{{ deployment_chart_version }}"
+global_app_version: "{{ deployment_app_version }}"
+
+ecs_registry_prefix: "microservice"
+
+deploy_image_tag: latest
+
+env_specific_vars:
+  devtest:
+    ssl_cert_arn: ""
+    main_domain: "exrates-k8s.name"
+    registry: "989806208174.dkr.ecr.us-east-2.amazonaws.com"
+    subdomain_suffix: devtest
+    Spring_Profile: devtest
+    cs_log_level: DEBUG
+    nginx_ingress_elb: internal-a5b13569b8e7a11e9a0c4065f03e2dcd-1689870922.us-east-2.elb.amazonaws.com

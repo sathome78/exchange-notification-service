@@ -1,0 +1,6 @@
+Jenkinsfile
+ansible-template-devtest-env.yml
+ansible.cfg
+group_vars/*
+notification-service-Dockerfile-build
+helm/*

@@ -1,0 +1,40 @@
+---
+- hosts: all
+  become: no
+  tasks:
+    - name: generate ramped deployment v1 charts
+      include_role:
+        name: dynamic-chart
+      vars:
+        service_playbook_dir: "{{ service_playbook_dir }}"
+        tolerations_node: "{{ item.value.tolerations_node }}"
+        affinity_node: "{{ item.value.affinity_node }}"
+        active_spring_profile: "{{ item.value.active_spring_profile }}"
+        spot: false
+        chart_name: "{{ item.value.chart_name }}"
+        chart_version: "{{ item.value.chart_version }}"
+        app_version: "{{ item.value.app_version }}"
+        chart_group: "{{ item.value.chart_group }}"
+        image_name: "{{ item.value.image_name }}"
+        image_tag: "{{ deploy_image_tag }}"
+        certificate_arn: "{{ item.value.certificate_arn }}"
+        ingress_enabled: "{{ item.value.ingress_enabled }}"
+        nginx_ingress_elb: "{{ item.value.nginx_ingress_elb }}"
+        ingress_per_one_service: "{{ item.value.ingress_per_one_service }}"
+        ingress_per_group_services: "{{ item.value.ingress_per_group_services }}"
+        ingress_scheme: "{{ item.value.ingress_scheme }}"
+        ingress_url: "{{ item.value.ingress_url }}"
+        ingress_controller_type: "{{ item.value.ingress_controller_type }}"
+        custom_redirects: "{{ item.value.custom_redirects }}"
+        deployment_environment: "{{ item.value.deployment_environment }}"
+        pod_env_vars: "{{ item.value.pod_env_vars }}"
+        mounts: "{{ item.value.mounts }}"
+        initContainers: "{{ item.value.initContainers }}"
+        resources: "{{ item.value.resources }}"
+        replicaCount: "{{ item.value.replicaCount }}"
+        hpa_controller: "{{ item.value.hpa_controller }}"
+        use_true_probes: "{{ item.value.use_true_probes | default(False) }}"
+        #use for DEBUG
+        DEBUG_ENABLE: true
+        DEBUG_PORT: 5005
+      loop: "{{ all_charts_stg | dict2items }}"

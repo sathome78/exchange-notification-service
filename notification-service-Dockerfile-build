@@ -1,0 +1,37 @@
+ARG build_test_skip
+ARG APP_PORT
+
+FROM maven:3.6.0-jdk-8-alpine as build 
+
+ARG APP_PORT
+ENV port=$APP_PORT
+# ARG env
+ARG build_test_skip
+ENV test_skip=$build_test_skip
+
+WORKDIR /app
+ADD . /app
+
+RUN apk update && apk add --no-cache python && apk add --no-cache git
+RUN mvn clean install -Dmaven.test.skip=$test_skip -X
+
+# WORKDIR /app/
+RUN echo '[build.info]' > build.info \
+    && echo commit=$(git rev-parse HEAD) >> build.info \
+    && echo artifact=$(python pom.py --file pom.xml) >> build.info
+
+FROM openjdk:8
+
+ARG APP_PORT
+ENV port=$APP_PORT
+ARG SPRING_PROFILE
+ENV profile $SPRING_PROFILE
+ARG SERVICE_NAME
+ENV SERVICE_NAME $SERVICE_NAME
+
+WORKDIR /app
+COPY --from=build /app/build.info ./build.info
+COPY --from=build /app/target/*.jar ./$SERVICE_NAME.jar
+
+EXPOSE ${port}
+CMD java -jar ${SERVICE_NAME}.jar --server.port=${port} -Dspring.profiles.active=${profile}
