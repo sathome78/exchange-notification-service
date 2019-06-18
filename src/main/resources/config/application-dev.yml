@@ -14,10 +14,10 @@ mail_sendgrid:
 
 spring:
   rabbitmq:
-    host: rabbitmq-prod.service
+    host: localhost
     port: 5672
-    username: prod
-    password: Urahci3n
+    username: root
+    password: root
 
 main.email: no-reply@exrates.me
 

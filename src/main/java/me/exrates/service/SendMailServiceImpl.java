@@ -60,7 +60,8 @@ public class SendMailServiceImpl implements SendMailService {
                         message.addAttachment(attachment.getName(), attachment.getResource(), attachment.getContentType());
                 }
             });
-            log.info("Email sent: {}, duration {} seconds", email, stopWatch.getTime(TimeUnit.SECONDS));
+            log.info("Email sent to: {}, subject {}, duration {} seconds", email.getTo(), email.getSubject(),
+                    stopWatch.getTime(TimeUnit.SECONDS));
         } catch (Exception ex) {
             log.error("Could not send email {}. Reason: {}", email, ex.getMessage());
         }
