@@ -1,17 +1,3 @@
-mail_support:
-  host: exrates.top
-  port: 25
-  protocol: smtp
-  user: mail@exrates.top
-  password: R37yt7gEft
-
-mail_mandrill:
-  host: smtp.mandrillapp.com
-  port: 587
-  protocol: smtp
-  user: Service
-  password: dKD_WZ61VHQbQwWlRQI8cA
-
 mail_ses:
   host: email-smtp.us-east-1.amazonaws.com
   port: 587
@@ -19,30 +5,21 @@ mail_ses:
   user: AKIA6M5IMESXGM7DI2XJ
   password: BPg7g+834jBANU1aT57lZI3oowDQ8J5J4VWOOe6sxSq/
 
-mail_info:
-  host: smtp.gmail.com
-  port: 587
+mail_sendgrid:
+  host: smtp.sendgrid.net
+  port: 25
   protocol: smtp
-  user: exrates.dev.test@gmail.com
-  password: tc*<kF7,h[bXLK_e
-
-default_mail_type: ses
+  user: StasGorobzeev
+  password: gkYY1k23YJRUxN4R
 
 spring:
   rabbitmq:
-    host: rabbitmq-preprod.service
+    host: rabbitmq-prod.service
     port: 5672
-    username: preprod
-    password: eehVBU21x
+    username: prod
+    password: Urahci3n
 
-mail_info.allowedOnly: false
-mail_info.allowedEmails: golvazin@gmail.com,avto12@i.ua,wayfarer2006@ukr.net,yagi7337@gmail.com,yagi3773@gmail.com,vlad.dziubak@gmail.com,nikita.dmytrenko@upholding.biz,oleg.podolyan@upholdingz.biz,oleg.kostiukevych@upholding.biz,listing@exrates.me
-
-support.email: mail@exrates.top
 main.email: no-reply@exrates.me
-info.email: no-reply@exrates.top
 
-listing.email: maxim.yukhno@upholding.biz
-listing.subject: Listing request
 server:
   port: 8081

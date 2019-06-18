@@ -15,28 +15,9 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 
 @Configuration
 public class RabbitConfig {
-
-    public static final String EMAIL_INFO_QUEUE = "email-info-queue";
-    public static final String EMAIL_SES_QUEUE = "email-ses-queue";
     public static final String EMAIL_QUEUE = "email-queue";
-    public static final String EMAIL_LISTING_REQUEST_QUEUE = "email-listing-email-queue";
 
     private static final Logger logger = LogManager.getLogger(RabbitConfig.class);
-
-    @Bean
-    Queue emailInfoQueue() {
-        return QueueBuilder.durable(EMAIL_INFO_QUEUE).build();
-    }
-
-    @Bean
-    Queue emailMandrillQueue() {
-        return QueueBuilder.durable(EMAIL_SES_QUEUE).build();
-    }
-
-    @Bean
-    Queue emailListingRequestQueue() {
-        return QueueBuilder.durable(EMAIL_LISTING_REQUEST_QUEUE).build();
-    }
 
     @Bean
     Queue emailQueue() {

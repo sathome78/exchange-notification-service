@@ -6,55 +6,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationProps {
 
-    @Value("${mail_support.host}")
-    private String mailSupportHost;
-    @Value("${mail_support.port}")
-    private String mailSupportPort;
-    @Value("${mail_support.protocol}")
-    private String mailSupportProtocol;
-    @Value("${mail_support.user}")
-    private String mailSupportUser;
-    @Value("${mail_support.password}")
-    private String mailSupportPassword;
-    
-    @Value("${mail_mandrill.host}")
-    private String mailMandrillHost;
-    @Value("${mail_mandrill.port}")
-    private String mailMandrillPort;
-    @Value("${mail_mandrill.protocol}")
-    private String mailMandrillProtocol;
-    @Value("${mail_mandrill.user}")
-    private String mailMandrillUser;
-    @Value("${mail_mandrill.password}")
-    private String mailMandrillPassword;
-    
-    @Value("${mail_info.host}")
-    private String mailInfoHost;
-    @Value("${mail_info.port}")
-    private String mailInfoPort;
-    @Value("${mail_info.protocol}")
-    private String mailInfoProtocol;
-    @Value("${mail_info.user}")
-    private String mailInfoUser;
-    @Value("${mail_info.password}")
-    private String mailInfoPassword;
-
-    @Value("${mail_info.allowedOnly}")
-    private Boolean allowedOnly;
-    @Value("${mail_info.allowedEmails}")
-    private String allowedEmailsList;
-    @Value("${default_mail_type}")
-    private String mailType;
-    @Value("${support.email}")
-    private String supportEmail;
-    @Value("${main.email}")
-    private String mainEmail;
-    @Value("${info.email}")
-    private String infoEmail;
-    @Value("${listing.email}")
-    private String listingEmail;
-    @Value("${listing.subject}")
-    private String listingSubject;
+    @Value("${mail_sendgrid.host}")
+    private String mailSendGridHost;
+    @Value("${mail_sendgrid.port}")
+    private String mailSendGridPort;
+    @Value("${mail_sendgrid.protocol}")
+    private String mailSendGridProtocol;
+    @Value("${mail_sendgrid.user}")
+    private String mailSendGridUser;
+    @Value("${mail_sendgrid.password}")
+    private String mailSendGridPassword;
 
     @Value("${mail_ses.host}")
     private String mailSesHost;
@@ -67,98 +28,8 @@ public class ApplicationProps {
     @Value("${mail_ses.password}")
     private String mailSesPassword;
 
-
-    public String getMailSupportHost() {
-        return mailSupportHost;
-    }
-
-    public String getMailSupportPort() {
-        return mailSupportPort;
-    }
-
-    public String getMailSupportProtocol() {
-        return mailSupportProtocol;
-    }
-
-    public String getMailSupportUser() {
-        return mailSupportUser;
-    }
-
-    public String getMailSupportPassword() {
-        return mailSupportPassword;
-    }
-
-    public String getMailMandrillHost() {
-        return mailMandrillHost;
-    }
-
-    public String getMailMandrillPort() {
-        return mailMandrillPort;
-    }
-
-    public String getMailMandrillProtocol() {
-        return mailMandrillProtocol;
-    }
-
-    public String getMailMandrillUser() {
-        return mailMandrillUser;
-    }
-
-    public String getMailMandrillPassword() {
-        return mailMandrillPassword;
-    }
-
-    public String getMailInfoHost() {
-        return mailInfoHost;
-    }
-
-    public String getMailInfoPort() {
-        return mailInfoPort;
-    }
-
-    public String getMailInfoProtocol() {
-        return mailInfoProtocol;
-    }
-
-    public String getMailInfoUser() {
-        return mailInfoUser;
-    }
-
-    public String getMailInfoPassword() {
-        return mailInfoPassword;
-    }
-
-    public Boolean getAllowedOnly() {
-        return allowedOnly;
-    }
-
-    public String getAllowedEmailsList() {
-        return allowedEmailsList;
-    }
-
-    public String getMailType() {
-        return mailType;
-    }
-
-    public String getSupportEmail() {
-        return supportEmail;
-    }
-
-    public String getMainEmail() {
-        return mainEmail;
-    }
-
-    public String getInfoEmail() {
-        return infoEmail;
-    }
-
-    public String getListingEmail() {
-        return listingEmail;
-    }
-
-    public String getListingSubject() {
-        return listingSubject;
-    }
+    @Value("${main.email}")
+    private String mainEmail;
 
     public String getMailSesHost() {
         return mailSesHost;
@@ -178,5 +49,29 @@ public class ApplicationProps {
 
     public String getMailSesPassword() {
         return mailSesPassword;
+    }
+
+    public String getMailSendGridHost() {
+        return mailSendGridHost;
+    }
+
+    public String getMailSendGridPort() {
+        return mailSendGridPort;
+    }
+
+    public String getMailSendGridProtocol() {
+        return mailSendGridProtocol;
+    }
+
+    public String getMailSendGridUser() {
+        return mailSendGridUser;
+    }
+
+    public String getMailSendGridPassword() {
+        return mailSendGridPassword;
+    }
+
+    public String getMainEmail() {
+        return mainEmail;
     }
 }
