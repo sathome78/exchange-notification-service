@@ -1,0 +1,57 @@
+---
+all_charts_stg:
+  notification-service:
+    chart_name: notification-service
+    chart_version: "{{ deployment_chart_version }}"
+    app_version: "{{ deployment_app_version }}"
+    chart_group: "notification-service"
+    image_name: "{{ env_specific_vars[deployment_env].registry }}/{{ ecs_registry_prefix }}-notification-service-{{ deployment_env }}"
+    certificate_arn: "{{ env_specific_vars[deployment_env].ssl_cert_arn }}"
+    ingress_enabled: true
+    # ingress_controller_type: traefik-ingress-controller
+    ingress_controller_type: nginx-ingress-controller
+    ingress_per_one_service: true
+    ingress_per_group_services: false
+    ingress_scheme: internet-facing
+    ingress_url: 'notification-service-{{ env_specific_vars[deployment_env].subdomain_suffix }}.{{ env_specific_vars[deployment_env].main_domain }}'
+    nginx_ingress_elb: '{{ env_specific_vars[deployment_env].nginx_ingress_elb }}'
+    active_spring_profile: "{{ env_specific_vars[deployment_env].Spring_Profile }}"
+    pod_env_vars:
+      Spring_Profile:
+        name: Spring_Profile
+        value: "{{ env_specific_vars[deployment_env].Spring_Profile }}"
+      cs_log_level:
+        name: cs_log_level
+        value: "{{ env_specific_vars[deployment_env].cs_log_level }}"
+      JAVA_OPTS:
+        name: JAVA_OPTS
+        value: -Xmx1500m -Xss1m -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseParallelGC -XX:+UseParallelOldGC -Dfile.encoding=UTF-8 -Dorg.apache.tomcat.util.http.ServerCookie.ALLOW_HTTP_SEPARATORS_IN_V0=true
+    deployment_environment: "{{ deployment_env }}"
+    tolerations_node: "microservice-dev"
+    affinity_node: "microservice-dev"
+    resources: {}
+      # limits:
+      #   memory: "1.5Gi"
+      #   cpu: "1"
+      # requests:
+      #   memory: "2Gi"
+      #   cpu: "1"
+    replicaCount: 1
+
+    hpa_controller:
+      autoscaling:
+        enabled: False
+
+    mounts: {}
+    #   secrets:
+    #     mountName: props
+    #     mountPath: /app/
+    #     secretName: "admin-{{ deployment_env }}"
+    #     readOnly: true
+
+    custom_redirects: {}
+
+    initContainers: {}
+
+    use_true_probes: true
+
