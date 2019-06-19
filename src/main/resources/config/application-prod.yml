@@ -20,6 +20,7 @@ spring:
     password: Urahci3n
 
 main.email: no-reply@exrates.me
+main.email.name: Exrates
 
 server:
   port: 8081

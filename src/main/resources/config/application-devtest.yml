@@ -20,6 +20,7 @@ spring:
     password: eehei4AeJein
 
 main.email: no-reply@exrates.me
+main.email.name: Exrates-stage
 
 server:
   port: 8081

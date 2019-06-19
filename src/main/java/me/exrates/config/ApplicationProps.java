@@ -30,6 +30,8 @@ public class ApplicationProps {
 
     @Value("${main.email}")
     private String mainEmail;
+    @Value("${main.email.name}")
+    private String mainEmailName;
 
     public String getMailSesHost() {
         return mailSesHost;
@@ -73,5 +75,9 @@ public class ApplicationProps {
 
     public String getMainEmail() {
         return mainEmail;
+    }
+
+    public String getMainEmailName() {
+        return mainEmailName;
     }
 }

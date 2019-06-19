@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -51,7 +52,7 @@ public class SendMailServiceImpl implements SendMailService {
             mailSender.send(mimeMessage -> {
                 MimeMessageHelper message;
                 message = new MimeMessageHelper(mimeMessage, true, UTF8);
-                message.setFrom(email.getFrom());
+                message.setFrom(new InternetAddress(email.getFrom(), props.getMainEmailName()));
                 message.setTo(email.getTo());
                 message.setSubject(email.getSubject());
                 message.setText(email.getMessage(), true);
